@@ -7,11 +7,16 @@ module System
     cmd = cmd.dup << ' ' << args.join(' ')
     env = env.dup.map { |k, v| [k.to_s, v.to_s] }.to_h
 
-    raise ArgumentError, "file(s) must be instance of File or Tempfile" unless file.nil? || file.all? { |f| f.is_a?(File) || f.is_a?(Tempfile) }
+    unless file.nil? || file.all? { |f| f.is_a?(File) || f.is_a?(Tempfile) }
+      raise ArgumentError, "file(s) must be instance of File or Tempfile"
+    end
+
+    unless capture != :default || file.nil? || file.is_a?(Array) && file.size == 2
+      raise ArgumentError, "invalid file redirects for default capture, expected array of two"
+    end
+
     out, err = case capture
-               when :default then
-                 raise ArgumentError, "invalid file redirects for default capture, expected array of two" unless file.nil? || file.is_a?(Array) && file.size == 2
-                 file ? [file.first, file.last] : [Tempfile.new('sysrun-out'), Tempfile.new('sysrun-err')]
+               when :default then file ? [file.first, file.last] : [Tempfile.new('sysrun-out'), Tempfile.new('sysrun-err')]
                when :out then [file || Tempfile.new('sysrun-out'), '/dev/null']
                when :err then ['/dev/null', file || Tempfile.new('sysrun-err')]
                when :both then [file || Tempfile.new('sysrun-outerr')] * 2
@@ -33,15 +38,9 @@ module System
 
   def self.wait_or_kill(pid, timeout=nil, on_timeout=nil)
     begin
-      Timeout::timeout(timeout) do
-        Process.wait pid
-      end
+      Timeout::timeout(timeout) { Process.wait pid }
     rescue Timeout::Error
-      if on_timeout then
-        on_timeout.call pid
-      else
-        Process.kill 9, pid
-      end
+      on_timeout ? on_timeout.call(pid) : Process.kill(9, pid)
       Process.wait pid
     end
 
