@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.test_files       = Dir['spec/system_run_spec*.rb']
 
   s.required_ruby_version = '>=2.3.0'
+  s.add_development_dependency 'rspec', '~>3.0'
 
   s.authors          = ['Sonja Biedermann']
 
