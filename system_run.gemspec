@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.files            = Dir['lib/**/*,spec/*}'] + %w(LICENSE Rakefile system_run.gemspec README.md)
   s.require_path     = 'lib'
   s.extra_rdoc_files = ['README.md']
-  s.test_files       = []
+  s.test_files       = Dir['spec/system_run_spec*.rb']
 
   s.required_ruby_version = '>=2.3.0'
 
