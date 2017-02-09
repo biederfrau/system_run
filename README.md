@@ -66,7 +66,7 @@ err.read
 out = Tempfile.new 'out'
 System.run program, file: out, capture: :both
 # => #<Process::Status: pid 20591 exit 0>
-[5] pry(main)> out.read
+out.read
 # => "worldhello"
 
 # you can specify some file to be used as stdin. this option is passed
