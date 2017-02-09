@@ -8,11 +8,11 @@ module System
     env = env.dup.map { |k, v| [k.to_s, v.to_s] }.to_h
 
     unless file.nil? || file.all? { |f| f.is_a?(File) || f.is_a?(Tempfile) }
-      raise ArgumentError, "file(s) must be instance of File or Tempfile"
+      raise ArgumentError, 'file(s) must be instance of File or Tempfile'
     end
 
     unless capture != :default || file.nil? || file.is_a?(Array) && file.size == 2
-      raise ArgumentError, "invalid file redirects for default capture, expected array of two"
+      raise ArgumentError, 'invalid file redirects for default capture, expected array of two'
     end
 
     out, err = case capture
