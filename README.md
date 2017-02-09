@@ -92,7 +92,7 @@ If the output is too large to be loaded into memory or you want to keep the
 output, you can specify a file–or for default capture, two files–that
 System.run should write to. System.run will rewind the file after writing.
 
-```
+```ruby
 # redirect to file (File or Tempfile or descendants)
 program = %q{ruby -e "STDOUT.print 'hello'; STDERR.print 'world'"}
 out = Tempfile.new 'out'
