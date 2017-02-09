@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name             = "system_run"
-  s.version          = "1.0.1"
+  s.version          = "1.0.2"
   s.platform         = Gem::Platform::RUBY
   s.license          = "MIT"
   s.summary          = "Tiny wrapper for running commands. Inspired by systemu."
