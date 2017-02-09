@@ -28,7 +28,7 @@ System.run program, capture: :both
 # => [#<Process::Status: pid 20464 exit 0>, "worldhello"]
 
 # kill (send signal 9) process after the specified time.
-program = %q{ruby -e "STDERR.print 'this can only end badly'; loop { sleep 1 }"} #"
+program = %q{ruby -e "STDERR.print 'this can only end badly'; loop { sleep 1 }"}
 System.run program, timeout: 2, capture: :both
 # ...
 # => [#<Process::Status: pid 20507 SIGKILL (signal 9)>, "this can only end badly"]
