@@ -69,8 +69,8 @@ end
 ```
 
 You can temporarily set some environment variables that will be accessible to
-the child process. Keys and values will be converted by System.run for you, don't
-worry about that.
+the child process. Keys and values will be converted to string by System.run
+for you, don't worry about that.
 
 ```ruby
 # set some environment variable.
